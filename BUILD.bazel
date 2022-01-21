@@ -1,0 +1,44 @@
+load("@npm//next:index.bzl", "next")
+load("@npm_breaks//next:index.bzl", broken_next="next")
+
+# Next CLI doesn't allow you to specify an output directory
+# See https://github.com/vercel/next.js/issues/9588
+# As a workaround, we can run it with a working directory in the output folder
+# so it produces a directory in the place bazel expects.
+
+next(
+    # Note: this must be named ".next" since Next CLI hard-codes that as the output dir
+    name = ".next",
+    args = [
+        "build",
+    ],
+    chdir = package_name(),
+    data = glob([
+        "components/*",
+        "pages/**",
+        "public/**",
+        "styles/*",
+    ]) + [
+        "package.json",
+        "next.config.js",
+    ],
+    output_dir = True,
+)
+
+broken_next(
+    name = ".broken_next",
+    args = [
+        "build",
+    ],
+    chdir = package_name(),
+    data = glob([
+        "components/*",
+        "pages/**",
+        "public/**",
+        "styles/*",
+    ]) + [
+        "package.json",
+        "next.config.js",
+    ],
+    output_dir = True,
+)
