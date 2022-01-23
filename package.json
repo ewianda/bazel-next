@@ -7,7 +7,7 @@
     "typecheck": "tsc"
   },
   "dependencies": {
-    "@bazel/typescript": "^4.3.0",
+    "@bazel/typescript": "4.6.1",
     "classnames": "2.3.1",
     "date-fns": "2.21.3",
     "gray-matter": "4.0.3",
@@ -24,6 +24,7 @@
     "@types/react": "^17.0.6",
     "@types/react-dom": "^17.0.5",
     "autoprefixer": "10.4.0",
+    "jest": "^27.4.7",
     "postcss": "8.4.5",
     "tailwindcss": "3.0.5"
   }
