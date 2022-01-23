@@ -8,12 +8,7 @@
     "importHelpers": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "lib": [
-      "es6",
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["es6", "dom", "dom.iterable", "esnext"],
     "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
@@ -49,13 +44,6 @@
       "./bazel-out/x64_windows-dbg/bin"
     ]
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "**/*.css"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.css"],
+  "exclude": ["node_modules"]
 }

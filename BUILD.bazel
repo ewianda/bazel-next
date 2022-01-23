@@ -12,14 +12,18 @@ copy_to_bin(
         "package.json",
         "postcss.config.js",
         "tailwind.config.js",
-        "tsconfig.json",
+        # "tsconfig.json",
     ] + glob(["_posts/*.md"]),
 )
 
-exports_files([
-    "tsconfig.json",
-    "Global.d.ts",
-])
+exports_files(
+    [
+        "tsconfig.json",
+        "Global.d.ts",
+        ".swcrc",
+    ],
+    visibility = ["//visibility:public"],
+)
 
 DATA = [
     ":data",
