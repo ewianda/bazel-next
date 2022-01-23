@@ -4,4 +4,5 @@ module.exports = {
   publicRuntimeConfig: {
     TEST: "Test",
   },
+  pageExtensions: ["jsx", "js"],
 };

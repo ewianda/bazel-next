@@ -1,44 +1,62 @@
+load("@build_bazel_rules_nodejs//:index.bzl", "js_library")
+load("@npm//@bazel/typescript:index.bzl", "ts_project")
 load("@npm//next:index.bzl", "next")
-load("@npm_breaks//next:index.bzl", broken_next="next")
+load("@bazel_gazelle//:def.bzl", "DEFAULT_LANGUAGES", "gazelle", "gazelle_binary")
 
-# Next CLI doesn't allow you to specify an output directory
-# See https://github.com/vercel/next.js/issues/9588
-# As a workaround, we can run it with a working directory in the output folder
-# so it produces a directory in the place bazel expects.
+# gazelle:build_file_name BUILD
+# gazelle:exclude node_modules
+# gazelle:exclude benchsci/frontend/reagent/node_modules
+# gazelle:exclude benchsci/frontend/ern/node_modules
+gazelle(
+    name = "gazelle",
+    extra_args = [
+        "-generate_js_tests",  # enables jest_node_test generation for .test.js files
+        "-alias_import_support",
+    ],
+    gazelle = ":gazelle_js",
+)
+
+gazelle_binary(
+    name = "gazelle_js",
+    languages = DEFAULT_LANGUAGES + [
+        "@ecosia_bazel_rules_nodejs_contrib//gazelle:go_default_library",
+    ],
+    visibility = [
+        "//visibility:public",
+    ],
+)
+
+load("@build_bazel_rules_nodejs//:index.bzl", "copy_to_bin")
+
+copy_to_bin(
+    name = "data",
+    srcs = [
+        "next.config.js",
+        "next-env.d.ts",
+        "package.json",
+        "postcss.config.js",
+        "tailwind.config.js",
+    ],
+)
+
+exports_files(["tsconfig.json", "Global.d.ts"])
 
 next(
-    # Note: this must be named ".next" since Next CLI hard-codes that as the output dir
     name = ".next",
     args = [
         "build",
+        "$(RULEDIR)",
     ],
-    chdir = package_name(),
-    data = glob([
-        "components/*",
-        "pages/**",
-        "public/**",
-        "styles/*",
-    ]) + [
-        "package.json",
-        "next.config.js",
-    ],
-    output_dir = True,
-)
-
-broken_next(
-    name = ".broken_next",
-    args = [
-        "build",
-    ],
-    chdir = package_name(),
-    data = glob([
-        "components/*",
-        "pages/**",
-        "public/**",
-        "styles/*",
-    ]) + [
-        "package.json",
-        "next.config.js",
+    data = [
+        ":data",
+        "//pages:_app",
+        "//pages:_document",
+        "//pages:index",
+        "//styles:global_css",
+        "//styles:index_css",
+        "//styles:utils.module_css",
+        "@npm//tailwindcss",
+        "@npm//typescript",
     ],
     output_dir = True,
 )
