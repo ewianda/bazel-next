@@ -7,7 +7,7 @@
     "typecheck": "tsc"
   },
   "dependencies": {
-    "@bazel/typescript": "4.6.1",
+    "@bazel/typescript": "^4.6.1",
     "classnames": "2.3.1",
     "date-fns": "2.21.3",
     "gray-matter": "4.0.3",

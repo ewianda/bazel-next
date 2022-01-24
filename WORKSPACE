@@ -6,16 +6,17 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 # This provides the basic tools for running and packaging nodejs programs in Bazel
 http_archive(
-            name = "build_bazel_rules_nodejs",
-            sha256 = "d63ecec7192394f5cc4ad95a115f8a6c9de55c60d56c1f08da79c306355e4654",
-            urls = ["https://github.com/bazelbuild/rules_nodejs/releases/download/4.6.1/rules_nodejs-4.6.1.tar.gz"],
+    name = "build_bazel_rules_nodejs",
+    patches = ["//:rules_nodejs.patch"],
+    sha256 = "d63ecec7192394f5cc4ad95a115f8a6c9de55c60d56c1f08da79c306355e4654",
+    urls = ["https://github.com/bazelbuild/rules_nodejs/releases/download/4.6.1/rules_nodejs-4.6.1.tar.gz"],
 )
 
 load("@build_bazel_rules_nodejs//:index.bzl", "yarn_install")
 
 yarn_install(
     name = "npm",
-    exports_directories_only = False,
+    exports_directories_only = True,
     package_json = "//:package.json",
     strict_visibility = False,
     symlink_node_modules = True,

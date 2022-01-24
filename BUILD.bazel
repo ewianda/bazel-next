@@ -53,6 +53,7 @@ DATA = [
 next(
     name = ".next",
     args = [
+        "--bazel_run_from_execroot",
         "build",
     ],
     chdir = "$(RULEDIR)",
@@ -86,6 +87,6 @@ nodejs_image(
     data = [
         ":.next",
     ] + DATA,
-    entry_point = "@npm//:node_modules/next/dist/bin/next",
+        entry_point = {"@npm//:node_modules/next": "dist/bin/next"},
     templated_args = ["--bazel_patch_module_resolver"],
 )

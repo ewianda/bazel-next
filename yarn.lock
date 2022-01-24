@@ -310,7 +310,7 @@
     "@babel/helper-validator-identifier" "^7.16.7"
     to-fast-properties "^2.0.0"
 
-"@bazel/typescript@4.6.1":
+"@bazel/typescript@^4.6.1":
   version "4.6.1"
   resolved "https://registry.yarnpkg.com/@bazel/typescript/-/typescript-4.6.1.tgz#5c674698bda53006d784cb40ba1e2cb1263ecc20"
   integrity sha512-T/2mOB9lSySaIQH47JsbKE8UG7eEChFltXCVNw2xk1+Eu7ym+osSIjaXoQVBPmAl/6qmIEzTyBIjFPEU2ohVrw==

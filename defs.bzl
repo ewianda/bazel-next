@@ -2,7 +2,6 @@ load("@build_bazel_rules_nodejs//:index.bzl", _js = "js_library")
 load("@npm//@bazel/typescript:index.bzl", _ts_project = "ts_project")
 load("@aspect_rules_swc//swc:swc.bzl", "swc_rule")
 
-
 _DEPS = [
     "@npm//@types/react",
     "@npm//tslib",
@@ -10,7 +9,7 @@ _DEPS = [
 
 def swc(name, **kwargs):
     kwargs["swcrc"] = "//:.swcrc"
-    swc_rule(name=name, **kwargs)
+    swc_rule(name = name, **kwargs)
 
 def js_library(name, srcs, **kwargs):
     _js(name, srcs, **kwargs)
@@ -34,7 +33,7 @@ def ts_project(name, srcs, **kwargs):
 
     _ts_project(
         name = name,
-        transpiler=swc,
+        transpiler = swc,
         srcs = srcs,
         deps = deps,
         data = data,
