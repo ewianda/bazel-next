@@ -28,6 +28,7 @@ next(
 broken_next(
     name = ".broken_next",
     args = [
+        "--bazel_run_from_execroot",
         "build",
     ],
     chdir = package_name(),
