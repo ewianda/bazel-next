@@ -3,16 +3,18 @@ load("//:defs.bzl", "ts_project")
 ts_project(
     name = "_app",
     srcs = ["_app.tsx"],
-    data = ["//styles:index_css"],
     visibility = ["//visibility:public"],
-    deps = ["@npm//next"],
+    deps = [
+        "//:node_modules/next",
+        "//styles:index_css",
+    ],
 )
 
 ts_project(
     name = "_document",
     srcs = ["_document.tsx"],
     visibility = ["//visibility:public"],
-    deps = ["@npm//next"],
+    deps = ["//:node_modules/next"],
 )
 
 ts_project(
@@ -20,6 +22,7 @@ ts_project(
     srcs = ["index.tsx"],
     visibility = ["//visibility:public"],
     deps = [
+        "//:node_modules/next",
         "//components:container",
         "//components:hero-post",
         "//components:intro",
@@ -28,6 +31,5 @@ ts_project(
         "//lib:api",
         "//lib:constants",
         "//types:post",
-        "@npm//next",
     ],
 )

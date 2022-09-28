@@ -5,6 +5,7 @@ ts_project(
     srcs = ["[slug].tsx"],
     visibility = ["//visibility:public"],
     deps = [
+        "//:node_modules/next",
         "//components:container",
         "//components:header",
         "//components:layout",
@@ -15,7 +16,6 @@ ts_project(
         "//lib:constants",
         "//lib:markdownToHtml",
         "//types:post",
-        "@npm//next",
     ],
 )
 
@@ -24,7 +24,7 @@ js_library(
     srcs = ["first-post.js"],
     visibility = ["//visibility:public"],
     deps = [
+        "//:node_modules/next",
         "//components:layout",
-        "@npm//next",
     ],
 )

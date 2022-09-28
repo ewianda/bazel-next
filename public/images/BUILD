@@ -1,6 +1,6 @@
-load("//:defs.bzl", "js_library")
+load("//:defs.bzl", "web_asset")
 
-js_library(
+web_asset(
     name = "profile_jpg",
     srcs = ["profile.jpg"],
     visibility = ["//visibility:public"],

@@ -1,6 +1,6 @@
-load("@build_bazel_rules_nodejs//:index.bzl", _js = "js_library")
-load("@npm//@bazel/typescript:index.bzl", _ts_project = "ts_project")
-load("@aspect_rules_swc//swc:swc.bzl", "swc_rule")
+load("@aspect_rules_js//js:defs.bzl", _js = "js_library")
+load("@aspect_rules_ts//ts:defs.bzl", _ts_project = "ts_project")
+load("@aspect_rules_swc//swc:defs.bzl", "swc_transpiler")
 
 _DEPS = [
     "@npm//@types/react",
@@ -8,11 +8,14 @@ _DEPS = [
 ]
 
 def swc(name, **kwargs):
-    kwargs["swcrc"] = "//:.swcrc"
-    swc_rule(name = name, **kwargs)
+    kwargs["swcrc"] = "//:swcrc"
+    swc_transpiler(name = name, **kwargs)
 
 def js_library(name, srcs, **kwargs):
-    _js(name, srcs, **kwargs)
+    _js(name = name, srcs = srcs, **kwargs)
+
+def web_asset(name, srcs, **kwargs):
+    _js(name = name, srcs = srcs, **kwargs)
 
 def ts_project(name, srcs, **kwargs):
     tsconfig = {
@@ -24,10 +27,10 @@ def ts_project(name, srcs, **kwargs):
         },
     }
     deps = kwargs.pop("deps", [])
-    deps += _DEPS
+    # deps += _DEPS
 
     # This is needed to import CSS
-    srcs.append("//:Global.d.ts")
+    srcs.append("//:build_deps")
 
     data = kwargs.pop("data", [])
 
@@ -41,8 +44,7 @@ def ts_project(name, srcs, **kwargs):
         declaration = True,
         declaration_map = True,
         preserve_jsx = True,
-        link_workspace_root = True,
-        extends = "//:tsconfig.json",
+        # link_workspace_root = True,
         tsconfig = tsconfig,
         **kwargs
     )

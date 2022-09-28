@@ -1,4 +1,4 @@
-load("//:defs.bzl", "js_library", "ts_project")
+load("//:defs.bzl", "ts_project", "web_asset")
 
 ts_project(
     name = "alert",
@@ -6,8 +6,8 @@ ts_project(
     visibility = ["//visibility:public"],
     deps = [
         ":container",
+        "//:node_modules/classnames",
         "//lib:constants",
-        "@npm//classnames",
     ],
 )
 
@@ -21,7 +21,7 @@ ts_project(
     name = "container",
     srcs = ["container.tsx"],
     visibility = ["//visibility:public"],
-    deps = ["@npm//react"],
+    deps = ["//:node_modules/react"],
 )
 
 ts_project(
@@ -29,8 +29,8 @@ ts_project(
     srcs = ["cover-image.tsx"],
     visibility = ["//visibility:public"],
     deps = [
-        "@npm//classnames",
-        "@npm//next",
+        "//:node_modules/classnames",
+        "//:node_modules/next",
     ],
 )
 
@@ -38,7 +38,7 @@ ts_project(
     name = "date-formatter",
     srcs = ["date-formatter.tsx"],
     visibility = ["//visibility:public"],
-    deps = ["@npm//date-fns"],
+    deps = ["//:node_modules/date-fns"],
 )
 
 ts_project(
@@ -55,7 +55,7 @@ ts_project(
     name = "header",
     srcs = ["header.tsx"],
     visibility = ["//visibility:public"],
-    deps = ["@npm//next"],
+    deps = ["//:node_modules/next"],
 )
 
 ts_project(
@@ -66,8 +66,8 @@ ts_project(
         ":avatar",
         ":cover-image",
         ":date-formatter",
+        "//:node_modules/next",
         "//types:author",
-        "@npm//next",
     ],
 )
 
@@ -78,21 +78,13 @@ ts_project(
     deps = ["//lib:constants"],
 )
 
-js_library(
-    name = "markdown-styles.module_css",
-    srcs = [
-            "markdown-styles.module.css",
-    ],
-    visibility = ["//visibility:public"],
-)
-
 ts_project(
     name = "meta",
     srcs = ["meta.tsx"],
     visibility = ["//visibility:public"],
     deps = [
+        "//:node_modules/next",
         "//lib:constants",
-        "@npm//next",
     ],
 )
 
@@ -109,8 +101,8 @@ ts_project(
 ts_project(
     name = "post-body",
     srcs = ["post-body.tsx"],
-    data = [":markdown-styles.module_css"],
     visibility = ["//visibility:public"],
+    deps = [":markdown-styles_module_css"],
 )
 
 ts_project(
@@ -134,8 +126,8 @@ ts_project(
         ":avatar",
         ":cover-image",
         ":date-formatter",
+        "//:node_modules/next",
         "//types:author",
-        "@npm//next",
     ],
 )
 
@@ -143,7 +135,7 @@ ts_project(
     name = "post-title",
     srcs = ["post-title.tsx"],
     visibility = ["//visibility:public"],
-    deps = ["@npm//react"],
+    deps = ["//:node_modules/react"],
 )
 
 ts_project(
@@ -160,5 +152,11 @@ ts_project(
 ts_project(
     name = "section-separator",
     srcs = ["section-separator.tsx"],
+    visibility = ["//visibility:public"],
+)
+
+web_asset(
+    name = "markdown-styles_module_css",
+    srcs = ["markdown-styles.module.css"],
     visibility = ["//visibility:public"],
 )

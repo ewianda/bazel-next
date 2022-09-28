@@ -4,10 +4,7 @@ ts_project(
     name = "api",
     srcs = ["api.ts"],
     visibility = ["//visibility:public"],
-    deps = [
-            "@npm//gray-matter",
-            "@npm//@types/node"
-    ],
+    deps = ["//:node_modules/gray-matter"],
 )
 
 ts_project(
@@ -21,7 +18,7 @@ ts_project(
     srcs = ["markdownToHtml.ts"],
     visibility = ["//visibility:public"],
     deps = [
-        "@npm//remark",
-        "@npm//remark-html",
+        "//:node_modules/remark",
+        "//:node_modules/remark-html",
     ],
 )

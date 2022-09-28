@@ -1,6 +1,6 @@
-load("//:defs.bzl", "js_library")
+load("//:defs.bzl", "web_asset")
 
-js_library(
+web_asset(
     name = "zeit_svg",
     srcs = ["zeit.svg"],
     visibility = ["//visibility:public"],
